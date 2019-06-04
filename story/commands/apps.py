@@ -62,38 +62,6 @@ def list_command():
         click.echo(table.draw())
 
 
-def _is_git_repo_good():
-    try:
-        assert cli.run('git status 2&>1')
-    except:
-        click.echo(
-            'Please create your application from a git-backed project folder.'
-        )
-        click.echo(click.style('$ git init', bold=True, fg='magenta'))
-        sys.exit(1)
-
-    try:
-        # This will raise an error if a remote by the name of asyncy does
-        # not exist.
-        # remote = cli.run('git remote get-url asyncy')
-        click.echo(
-            click.style(
-                'There appears to be git remote named asyncy '
-                'already ({remote}).\n',
-                fg='red',
-            )
-        )
-        click.echo(
-            'If you\'re trying to create a new app, please create a\n'
-            'new directory with a git repository '
-            'in there.'
-        )
-        sys.exit(1)
-    except subprocess.CalledProcessError:
-        # This just means that the remote does not exist, which is OK.
-        pass
-
-
 @apps.command()
 @click.argument('name', nargs=1, required=False)
 @click.option(
@@ -174,7 +142,7 @@ def create(name, team):
     click.echo(' - [ ] Write a Story:')
     click.echo(
         '       $ '
-        + click.style('story bootstrap http > http.story', fg='magenta')
+        + click.style('story write http > http.story', fg='magenta')
     )
     click.echo()
     click.echo(' - [ ] Deploy to Storyscript Cloud:')
@@ -197,6 +165,18 @@ def url(app):
         print_nl = True
 
     click.echo(f'https://{app}.storyscriptapp.com/', nl=print_nl)
+
+
+@apps.command()
+@options.app()
+def open(app):
+    """Open the full URL of an app, in the browser."""
+    cli.user()
+    url = f'https://{app}.storyscriptapp.com/'
+
+    click.echo(url)
+    click.launch(url)
+    sys.exit(0)
 
 
 @apps.command()

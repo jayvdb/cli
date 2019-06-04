@@ -89,6 +89,9 @@ requirements = [
     'pyyaml>=4.2',
     'pytz>=2018.5',
     'blindspin',
+    'appdirs',
+    'xerox',
+    'semver',
 ]
 
 test_requirements = ["pytest", "delegator.py"]
