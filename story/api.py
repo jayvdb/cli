@@ -313,7 +313,7 @@ class Apps:
         )
 
 
-class ContainerConfig:
+class Registry:
 
     @staticmethod
     def list():
