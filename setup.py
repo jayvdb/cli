@@ -9,15 +9,6 @@ from setuptools import find_packages, setup, Command
 from story.version import version
 
 
-class Install(_install):
-    """Overwrites the default setup.py installation to error on Python < 3.6."""
-
-    def run(self):
-        if sys.version_info < (3, 6):
-            sys.exit('story requires Python 3.6+')
-        _install.run(self)
-
-
 class PyTest(Command):
     user_options = [("pytest-args=", "a", "Arguments to pass into py.test")]
 
@@ -126,5 +117,5 @@ setup(
     extras_require={},
     requires_python='>=3.6.0',
     entry_points={'console_scripts': ['story=story.__main__:cli']},
-    cmdclass={'install': Install, 'test': PyTest, 'format': Format},
+    cmdclass={'test': PyTest, 'format': Format},
 )
