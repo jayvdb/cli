@@ -115,7 +115,7 @@ setup(
     setup_requires=['setuptools_scm'],
     tests_require=test_requirements,
     extras_require={},
-    requires_python='>=3.6.0',
+    requires_python='>=3.5.0',
     entry_points={'console_scripts': ['story=story.__main__:cli']},
     cmdclass={'test': PyTest, 'format': Format},
 )
