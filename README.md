@@ -60,9 +60,9 @@ For other issues, [submit a support ticket](mailto:support@asyncy.com)
 Run
 ```sh
 virtualenv venv --python=python3.7 && source venv/bin/activate
-pip install -r requirements.txt
+python setup.py develop
 
-TOXENV=true python -m story.main
+TOXENV=true python -m story
 ```
 
 Test
