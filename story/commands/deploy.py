@@ -78,6 +78,7 @@ def deploy(app, message, hard):
             time.sleep(0.5)
 
     click.echo()
+    success = False
     if state == 'DEPLOYED':
         echo_with_tick(f'Configured '
                        f"{num_stories} {pluralise('story', num_stories)}")
@@ -100,6 +101,7 @@ def deploy(app, message, hard):
         click.echo(
             f'If your Story responds to HTTP requests, please visit:\n  {url}'
         )
+        success = True
     elif state == 'FAILED':
         click.echo(
             click.style('X', fg='red') + ' Deployment failed!', err=True
@@ -126,6 +128,9 @@ def deploy(app, message, hard):
             err=True,
         )
         click.echo(f'Please shoot an email to support@storyscript.io')
+
+    if not success:
+        click.get_current_context().exit(1)
 
 
 def echo_with_tick(message):

@@ -16,6 +16,10 @@ from pytest import mark
 def test_deploy(runner, with_message, patch, hard_deployment,
                 final_release_state, maintenance, payload,
                 init_sample_app_in_cwd):
+    expected_exit_code = 1
+    if final_release_state == 'DEPLOYED' or maintenance:
+        expected_exit_code = 0
+
     with runner.runner.isolated_filesystem():
         init_sample_app_in_cwd()
 
@@ -55,7 +59,7 @@ def test_deploy(runner, with_message, patch, hard_deployment,
             assert result.stdout == ''
             return
         else:
-            result = runner.run(deploy, exit_code=0, args=args)
+            result = runner.run(deploy, exit_code=expected_exit_code, args=args)
 
         if maintenance:
             assert 'Your app is in maintenance mode.' in result.stdout
