@@ -59,7 +59,8 @@ def test_deploy(runner, with_message, patch, hard_deployment,
             assert result.stdout == ''
             return
         else:
-            result = runner.run(deploy, exit_code=expected_exit_code, args=args)
+            result = runner.run(deploy, exit_code=expected_exit_code,
+                                args=args)
 
         if maintenance:
             assert 'Your app is in maintenance mode.' in result.stdout
